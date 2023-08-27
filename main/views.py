@@ -23,10 +23,9 @@ from django.core.files.storage import default_storage
 from django.shortcuts import render, redirect
 from .models import Video
 from .forms import VideoUploadForm
-import whisper
+
 from django.core.files.base import ContentFile
-import moviepy.editor as mp
-import speech_recognition as sr
+
 
 @login_required
 def index(request):
@@ -346,43 +345,12 @@ def upload_success(request):
 
 
 
-def upload_video(request):
-    if request.method == 'POST':
-        form = VideoUploadForm(request.POST, request.FILES)
-        form = VideoUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            video = form.save()
-
-            # Convert the uploaded video to audio
-            
-
-            # Convert the uploaded video to audio
-            
-
-            # Save the transcription result in the video instanc
-            transcribe_video.delay(video.id)
-            return redirect('upload_success')
-    else:
-        form = VideoUploadForm()
-    return render(request, 'upload.html', {'form': form})
-
-
-@login_required
-def videolist(request):
-    
-    videos = Video.objects.all()
-    return render(request, 'videolist.html', {'videos': videos})
 
 
 
-def transcribe_video(video_id):
-    video = Video.objects.get(pk=video_id)
-    model = whisper.load_model("base")
-    result = model.transcribe(video.video_file.path)
 
-    print(result['text'])
-    video.save()    
-   
+
+
 
   
 

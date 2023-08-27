@@ -24,8 +24,7 @@ urlpatterns = [
 
 
     #new 
-    path('uploadvideo/', views.upload_video, name='upload_video'),
-    path('videolist/', views.videolist, name='videolist'),
+   
     path('upload/success/', views.upload_success, name='upload_success'),
 
 ]
