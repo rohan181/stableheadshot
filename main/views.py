@@ -152,7 +152,7 @@ def retrieve_user_items(request):
         formatted_images.append(url)   
 
 
-    print(formatted_images)
+ 
     
 
 # If you want to add the "images" key to the output, you can create a dictionary
