@@ -418,11 +418,23 @@ window.onload = function() {
               var userItems = data.user_items;
       
               var imageContainer = document.getElementById("image-container");
+
+              var baseUrl = "https://storage.googleapis.com/photoairohan";
+var imageUrls = [];
       
               userItems.forEach(function(userItem) {
-                var imageUrlsString = userItem.image;
-                console.log(imageUrlsString);
-                var imageUrls = JSON.parse(imageUrlsString.replace(/'/g, '"'));
+
+                var baseUrl = "https://storage.googleapis.com/photoairohan";
+                var imageUrls= baseUrl + "/" + userItem.imagefile
+                // var imageUrlsString = userItem.imagefile;
+                //console.log(imageUrlsString);
+                var imageUrls= [imageUrls];
+                console.log(imageUrls);
+// Now, imageUrlsArray is an array with a single URL string.
+
+// If you later want to add more URLs to the array, you can use push:
+// imageUrls.push(baseUrl + "/" + anotherUserItem.imagefile);
+
       
                 if (Array.isArray(imageUrls)) {
                   imageUrls.forEach(function(imageUrl, index) {

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import time
 from rest_framework.decorators import api_view
 # Create your views here.
 from django.contrib.auth.decorators import login_required
@@ -23,6 +24,9 @@ from django.core.files.storage import default_storage
 from django.shortcuts import render, redirect
 from .models import Video
 from .forms import VideoUploadForm
+import requests
+import ast 
+import uuid
 
 from django.core.files.base import ContentFile
 
@@ -60,10 +64,27 @@ def create_user_item(request):
     data = request.data
     user = request.user
     modelid = data.get('modelid')
-    image = data.get('image')
-    
-    # Create the UserItem object
-    user_item = UserItem.objects.create(user=user, modelid=modelid, image=image)
+    image_url_str = data.get('image')  # Assuming 'image' is a string representation of a list
+    image_url_str = ', '.join(image_url_str)
+    url= image_url_str.replace('[', '').replace(']', '')
+    response = requests.get(url)
+    if response.status_code == 200:
+        # Get the image data
+        image_data = response.content
+        unique_name = f"{uuid.uuid4().hex}_{int(time.time())}.jpg"
+        image_file = ContentFile(image_data, name= unique_name) 
+     #   https://storage.googleapis.com/photoairohan
+        # Create the UserItem object and store the image data
+        user_item = UserItem.objects.create(user=user, modelid=modelid, imagefile=image_file)
+    else:
+        # Handle the case when the image cannot be downloaded (e.g., return an error response)
+        return HttpResponse("Failed to download the image", status=400)
+
+
+
+
+
+
 
     # Return a success response
     return Response({'message': 'success'})

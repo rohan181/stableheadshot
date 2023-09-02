@@ -17,7 +17,7 @@ class UserItem(models.Model):
     userprofile = models.ForeignKey(Userprofile, on_delete=models.CASCADE,null=True,related_name='userprofile')
     modelid = models.CharField(max_length=500,blank=True,null=True)
     image = models.CharField(max_length=500,blank=True,null=True)
-
+    imagefile = models.ImageField(upload_to='photos/',blank=True,null=True)
 
 
 class Photo(models.Model):
