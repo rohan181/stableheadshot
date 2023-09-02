@@ -143,13 +143,13 @@ def retrieve_user_items(request):
 
 
 
-    user_items = Photo.objects.filter(user=request.user).order_by('-id')
-    image_urls = [item.image.url for item in user_items]
+#     user_items = Photo.objects.filter(user=request.user).order_by('-id')
+#     image_urls = [item.image.url for item in user_items]
 
-# Convert image URLs to the desired format
-    formatted_images = []
-    for url in image_urls:
-        formatted_images.append(url)   
+# # Convert image URLs to the desired format
+#     formatted_images = []
+#     for url in image_urls:
+#         formatted_images.append(url)   
 
 
  
